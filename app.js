@@ -13,25 +13,27 @@ mongoose.connect("mongodb://localhost/yelp_camp");
 // Schema Setup
 var campgroundSchema = new mongoose.Schema({
   name: String,
-  image: String
+  image: String,
+  description: String
 });
 
 // Model
 var Campground = mongoose.model("Campground", campgroundSchema);
 
 // Adding data
-// Campground.create(
-//   {
-//     name: "Salmon Creek",
-//     image: "http://www.theaa.com/resources/images/news/aa-campsite-of-the-year.jpg"
-//   }, function(err, campground) {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log("Created campground");
-//     console.log(campground);
-//   }
-// })
+Campground.create(
+  {
+    name: "Salmon Creek",
+    image: "http://www.theaa.com/resources/images/news/aa-campsite-of-the-year.jpg",
+    description: "Cracking campsite this"
+  }, function(err, campground) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("Created campground");
+    console.log(campground);
+  }
+})
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -69,6 +71,10 @@ app.post("/campgrounds", function(req, res) {
 
 app.get("/campgrounds/new", function(req, res) {
   res.render("new");
+});
+
+app.get("/campgrounds/:id", function(req, res) {
+  res.send("the show page");
 });
 
 app.listen(3000, function() {
