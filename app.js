@@ -2,6 +2,7 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
+var Campground = require("./models/campground");
 
 var campgrounds = [
   {name: "Salmon Creek", image: "https://www.coolcamping.co.uk/system/images/369/great-langdale-national-trust-campsite-large.jpg"},
@@ -10,15 +11,6 @@ var campgrounds = [
 ]
 
 mongoose.connect("mongodb://localhost/yelp_camp");
-// Schema Setup
-var campgroundSchema = new mongoose.Schema({
-  name: String,
-  image: String,
-  description: String
-});
-
-// Model
-var Campground = mongoose.model("Campground", campgroundSchema);
 
 // Adding data
 // Campground.create(
@@ -57,7 +49,8 @@ app.get("/campgrounds", function(req, res) {
 app.post("/campgrounds", function(req, res) {
   var name = req.body.name;
   var image = req.body.image;
-  var newCampground = {name: name, image: image};
+  var description = req.body.description;
+  var newCampground = {name: name, image: image, description: description};
   // campgrounds.push(newCampground);
   // Create a new campground and save
   Campground.create(newCampground, function(err, newlyCreated) {
