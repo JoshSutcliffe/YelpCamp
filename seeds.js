@@ -17,21 +17,29 @@ function seedDB() {
     console.log("removed campgrounds");
     // add some campgrounds
     data.forEach(function(seed) {
-      Campground.create(seed, function(err, data) {
+      Campground.create(seed, function(err, campground) {
         if (err) {
           console.log(err);
         } else {
           console.log("added a campground");
           // Create a comment for all seed data
-          Comment.create({text: "Great place but no internet", author: "Big Dave"}, function(err, comment) {
-            if (err) {
-              console.log(err);
-            } else {
-              data.comments.push(comment);
-              campground.save();
-              console.log("Comment saved");
-            };
-          });
+          Comment.create(
+            {
+              text: "Great place but no internet",
+              author: "Big Dave"
+            }, function(err, comment) {
+              if (err) {
+                console.log(err);
+              } else {
+                if (err) {
+                  console.log(err);
+                } else {
+                  campground.comments.push(comment);
+                  campground.save();
+                  console.log("Comment saved");
+                }
+              };
+           });
         };
       });
     });

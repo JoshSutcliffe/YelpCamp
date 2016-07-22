@@ -4,7 +4,14 @@ var mongoose = require("mongoose");
 var campgroundSchema = new mongoose.Schema({
   name: String,
   image: String,
-  description: String
+  description: String,
+  // Creating an association with the comments model
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment"
+    }
+  ]
 });
 
 // Model
